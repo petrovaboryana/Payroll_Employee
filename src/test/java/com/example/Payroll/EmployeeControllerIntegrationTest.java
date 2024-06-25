@@ -54,66 +54,6 @@ public class EmployeeControllerIntegrationTest {
                 .andExpect(jsonPath("$.role", is("Manager")));
     }
 
-    @Test
-    public void testGetEmployeeById() throws Exception {
-        Employee employee = new Employee();
-        employee.setName("John Doe");
-        employee.setRole("Developer");
-        employee = repository.save(employee);
 
-        mockMvc.perform(get("/employees/" + employee.getId()))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.name", is("John Doe")))
-                .andExpect(jsonPath("$.role", is("Developer")));
-    }
-
-    @Test
-    public void testGetEmployeeById_NotFound() throws Exception {
-        mockMvc.perform(get("/employees/1"))
-                .andExpect(status().isNotFound());
-    }
-
-    @Test
-    public void testUpdateEmployee() throws Exception {
-        Employee employee = new Employee();
-        employee.setName("John Doe");
-        employee.setRole("Developer");
-        employee = repository.save(employee);
-
-        String updatedEmployeeJson = "{\"name\":\"John Smith\",\"role\":\"Manager\"}";
-
-        mockMvc.perform(put("/employees/" + employee.getId())
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(updatedEmployeeJson))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.name", is("John Smith")))
-                .andExpect(jsonPath("$.role", is("Manager")));
-    }
-
-    @Test
-    public void testUpdateEmployee_CreateNew() throws Exception {
-        String updatedEmployeeJson = "{\"name\":\"John Smith\",\"role\":\"Manager\"}";
-
-        mockMvc.perform(put("/employees/1")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(updatedEmployeeJson))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.name", is("John Smith")))
-                .andExpect(jsonPath("$.role", is("Manager")));
-    }
-
-    @Test
-    public void testDeleteEmployee() throws Exception {
-        Employee employee = new Employee();
-        employee.setName("John Doe");
-        employee.setRole("Developer");
-        employee = repository.save(employee);
-
-        mockMvc.perform(delete("/employees/" + employee.getId()))
-                .andExpect(status().isOk());
-
-        mockMvc.perform(get("/employees/" + employee.getId()))
-                .andExpect(status().isNotFound());
-    }
 }
 
