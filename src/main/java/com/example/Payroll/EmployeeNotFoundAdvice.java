@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 class EmployeeNotFoundAdvice {
 
     @ExceptionHandler(EmployeeNotFoundException.class)//Указва, че този метод ще обработва изключения от тип
-    @ResponseStatus(HttpStatus.NOT_FOUND)//Указва, че когато се хвърли грешката, HTTP отговорът ще бъде с статус код 404 Not Found.
+    @ResponseStatus(HttpStatus.NOT_FOUND)//Указва,   че когато се хвърли грешката, HTTP отговорът ще бъде с статус код 404 Not Found.
     String employeeNotFoundHandler(EmployeeNotFoundException ex) {
         return ex.getMessage();//връща съобщението за грешка
     }
