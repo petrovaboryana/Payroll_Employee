@@ -20,7 +20,6 @@ jobs:
           distribution: 'zulu' # Alternative distribution options are available.
       - name: mvn clean install
           run: mvn clean install
-
       - name: Cache SonarCloud packages
         uses: actions/cache@v3
         with:
